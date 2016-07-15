@@ -1,8 +1,8 @@
 <?php
 
-namespace Demo\Mapper;
+namespace Album\Mapper;
 
-use Demo\Entity\AlbumEntity;
+use Album\Entity\AlbumEntity;
 use Settings\Common\CommonTableGateway;
 use Settings\Library\DBTables;
 use Zend\Db\ResultSet\ResultSet;

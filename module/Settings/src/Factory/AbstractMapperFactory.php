@@ -16,7 +16,6 @@ class AbstractMapperFactory implements AbstractFactoryInterface
          * @var CommonTableGateway $requestedName
          * @var CommonEntity $entity
          */
-
         $entityName = str_replace('Mapper', 'Entity', $requestedName);
         $entity = new $entityName();
         $mapper = new $requestedName($container->get(AdapterInterface::class), $entity);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Demo\Entity;
+namespace Album\Entity;
 
 use Settings\Common\CommonEntity;
 

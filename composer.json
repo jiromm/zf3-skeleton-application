@@ -31,7 +31,7 @@
   "autoload": {
     "psr-4": {
       "Settings\\": "module/Settings/src/",
-      "Demo\\": "module/Demo/src/"
+      "Album\\": "module/Album/src/"
     }
   },
   "scripts": {
