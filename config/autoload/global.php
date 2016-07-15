@@ -14,8 +14,8 @@
 return [
     'db' => [
         'driver'    => 'pdo_mysql',
-        'dsn'       => 'mysql:dbname=album;host=localhost;',
-        'username'  => 'mysqlbackoffice',
-        'password'  => 'toxindzners'
+        'dsn'       => 'mysql:dbname=test;host=localhost;',
+        'username'  => 'root',
+        'password'  => ''
     ],
 ];

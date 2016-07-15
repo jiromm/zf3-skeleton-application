@@ -3,6 +3,7 @@
 namespace Settings;
 
 use Settings\Factory\AbstractControllerFactory;
+use Settings\Factory\AbstractMapperFactory;
 use Settings\Factory\AbstractServiceFactory;
 
 return [
@@ -13,11 +14,9 @@ return [
     ],
 
     'service_manager' => [
-        'aliases' => [
-            'ss' => AbstractServiceFactory::class
-        ],
         'abstract_factories' => [
             AbstractServiceFactory::class,
+            AbstractMapperFactory::class,
         ],
     ],
 
