@@ -1,0 +1,30 @@
+{
+  "name": "jiromm/zf3-skeleton-application",
+  "description": "Skeleton Application for Zend Framework applications",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "framework",
+    "mvc",
+    "zf2"
+  ],
+  "homepage": "https://github.com/jiromm/zf3-skeleton-application",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^5.6 || ^7.0"
+  },
+  "require-dev": {
+    "zendframework/zend-*": "*",
+    "zfcampus/zf-development-mode": "^3.0"
+  },
+  "scripts": {
+    "development-disable": "zf-development-mode disable",
+    "development-enable": "zf-development-mode enable",
+    "development-status": "zf-development-mode status",
+    "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php"
+  },
+  "require-dev": {
+    "zendframework/zend-test": "^3.0"
+  }
+}
