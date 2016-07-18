@@ -2,20 +2,22 @@
 
 namespace Settings\Common;
 
+use Settings\Library\Nil;
+
 abstract class CommonEntity
 {
     private $properties;
 
     public function __construct()
     {
-//        $reflect = new \ReflectionClass($this);
-//        $properties = $reflect->getDefaultProperties();
-//
-//        foreach ($properties as $property => $value) {
-//            $this->$property = new Null();
-//        }
-//
-//        $this->properties = $properties;
+        $reflect = new \ReflectionClass($this);
+        $properties = $reflect->getDefaultProperties();
+
+        foreach ($properties as $property => $value) {
+            $this->$property = new Nil();
+        }
+
+        $this->properties = $properties;
     }
 
     public function exchangeArray()
@@ -23,7 +25,7 @@ abstract class CommonEntity
         $propertiesArray = [];
 
         foreach ($this->properties as $property => $value) {
-            $data = $this->$property;//($this->$property instanceof Null) ? null : $this->$property;
+            $data = ($this->$property instanceof Nil) ? null : $this->$property;
             $propertiesArray[$property] = $data;
         }
 

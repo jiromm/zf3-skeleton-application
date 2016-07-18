@@ -2,6 +2,7 @@
 
 namespace Settings\Common;
 
+use Settings\Library\Nil;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
@@ -131,7 +132,11 @@ class CommonTableGateway extends TableGateway
      */
     public function insert($entity)
     {
-        return parent::insert($this->hydrator->extract($entity));
+        $prepared = $this->cleanup(
+            $this->hydrator->extract($entity)
+        );
+
+        return parent::insert($prepared);
     }
 
     /**
@@ -141,7 +146,11 @@ class CommonTableGateway extends TableGateway
      */
     public function update($entity, $where = null)
     {
-        return parent::update($this->hydrator->extract($entity), $where);
+        $prepared = $this->cleanup(
+            $this->hydrator->extract($entity)
+        );
+
+        return parent::update($prepared, $where);
     }
 
     public function beginTransaction()
@@ -185,41 +194,24 @@ class CommonTableGateway extends TableGateway
         });
     }
 
-    public function multiInsert($data, $ignore = false)
+    /**
+     * @param array $inputArray
+     * @return array
+     */
+    protected function cleanup(array $inputArray)
     {
-        $count = 0;
+        $output = [];
 
-        if (count($data)) {
-            $ignore = $ignore ? 'IGNORE' : '';
-            $columns = (array)current($data);
-            $columns = array_keys($columns);
-            $columnsCount = count($columns);
-            $platform = $this->adapter->platform;
-
-            foreach ($columns as &$column) {
-                $column = $platform->quoteIdentifier($column);
-            }
-
-            $columns = '(' . implode(',', $columns) . ')';
-
-            $placeholder = array_fill(0, $columnsCount, '?');
-            $placeholder = '(' . implode(',', $placeholder) . ')';
-            $placeholder = implode(',', array_fill(0, count($data), $placeholder));
-
-            $values = [];
-
-            foreach ($data as $row) {
-                foreach ($row as $value) {
-                    array_push($values, $value);
+        if (count($inputArray)) {
+            foreach ($inputArray as $prop => $value) {
+                if ($value instanceof Nil) {
+                    continue;
                 }
-            }
 
-            $table = $platform->quoteIdentifier($this->getTable());
-            $q = "INSERT $ignore INTO $table $columns VALUES $placeholder";
-            $result = $this->adapter->query($q)->execute($values);
-            $count = $result->count();
+                $output[$prop] = $value;
+            }
         }
 
-        return $count;
+        return $output;
     }
 }

@@ -15,6 +15,9 @@ class IndexController extends CommonActionController
          */
         $albumService = $this->container->get('Album\Service\AlbumService');
 
+//        $albumService->insertAlbum();
+//        $albumService->updateAlbum();
+
         $albums = $albumService->getAlbums();
 
         return new ViewModel([

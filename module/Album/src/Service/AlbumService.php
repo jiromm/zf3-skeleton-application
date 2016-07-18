@@ -21,8 +21,38 @@ class AlbumService extends CommonService
 
         $albums = $albumMapper->getAlbums();
 
-        return array_map(function (AlbumEntity $album) {
-            return $album->exchangeArray();
-        }, $albums);
+        return $albums->toArray();
+    }
+
+    /**
+     * @return void
+     */
+    public function updateAlbum()
+    {
+        /**
+         * @var AlbumMapper $albumMapper
+         */
+        $albumMapper = $this->container->get('Album\Mapper\AlbumMapper');
+
+        $albumEntity = new AlbumEntity();
+        $albumEntity->setArtist('Random Artist 2');
+
+        $albumMapper->update($albumEntity, ['id' => 1]);
+    }
+
+    /**
+     * @return void
+     */
+    public function insertAlbum()
+    {
+        /**
+         * @var AlbumMapper $albumMapper
+         */
+        $albumMapper = $this->container->get('Album\Mapper\AlbumMapper');
+
+        $albumEntity = new AlbumEntity();
+        $albumEntity->setArtist('Random Artist 3');
+
+        $albumMapper->insert($albumEntity);
     }
 }
